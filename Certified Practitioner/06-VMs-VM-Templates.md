@@ -100,6 +100,7 @@ git sparse-checkout init --cone
 git sparse-checkout set VMs
 git checkout
 cd VMs
+ls -lah
 ```
 
 #### Install
@@ -121,6 +122,7 @@ git sparse-checkout init --cone
 git sparse-checkout set VMs
 git checkout
 cd VMs
+ls -lah
 ```
 
 #### Install & Verify
