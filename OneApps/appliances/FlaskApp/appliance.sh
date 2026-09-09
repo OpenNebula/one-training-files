@@ -1,9 +1,9 @@
 # List of contextualization parameters
 
 ONE_SERVICE_PARAMS=(
-    'APP_DATABASE'            'configure' 'Database name'                          ''
-    'DB_USER'            'configure' 'Database user'                                     ''
-    'DB_USER_PASSWORD'            'configure' 'Database pass'                             ''
+    'MYSQL_DATABASE'            'configure' 'Database name'                          ''
+    'DB_ROOT'            'configure' 'Database user'                                     ''
+    'MYSQL_ROOT_PASSWORD'            'configure' 'Database pass'                             ''
 )
 
 ### Appliance metadata ###############################################
@@ -18,9 +18,9 @@ EOF
 )
 
 ### Contextualization defaults #######################################
-APP_DATABASE="${APP_DATABASE:appdb}"
-DB_USER="${DB_USER:appuser}"
-DB_USER_PASSWORD="${DB_USER_PASSWORD:appdbpassword}"
+MYSQL_DATABASE="${MYSQL_DATABASE:appdb}"
+DB_ROOT="${DB_ROOT:appuser}"
+MYSQL_ROOT_PASSWORD="${MYSQL_ROOT_PASSWORD:appdbpassword}"
 DB_HOST='127.0.0.1'
 
 ###############################################################################
@@ -64,7 +64,7 @@ setup_flask()
     source bin/activate
     mkdir app
     git clone https://github.com/alpeon/test-app.git app
-    cd app/old
+    cd app
     pip install -r requirements.txt
 
 }
@@ -73,7 +73,7 @@ setup_flask()
 
 cfg_db()
 {
-    mysql -u root -e "CREATE USER IF NOT EXISTS '${DB_USER}'@'%' IDENTIFIED BY '${DB_USER_PASSWORD}';"
-    mysql -u root -e "CREATE DATABASE IF NOT EXISTS \`${APP_DATABASE}\`;"
-    mysql -u root -e "GRANT ALL PRIVILEGES ON \`${APP_DATABASE}\`.* TO '${DB_USER}'@'%';"
+    mysql -u root -e "CREATE USER IF NOT EXISTS '${DB_ROOT}'@'%' IDENTIFIED BY '${MYSQL_ROOT_PASSWORD}';"
+    mysql -u root -e "CREATE DATABASE IF NOT EXISTS \`${MYSQL_DATABASE}\`;"
+    mysql -u root -e "GRANT ALL PRIVILEGES ON \`${MYSQL_DATABASE}\`.* TO '${DB_ROOT}'@'%';"
 }
