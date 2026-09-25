@@ -17,7 +17,7 @@ one = pyone.OneServer(one_xmlrpc_url, session=session)
 
 #### define variables
 
-alma_linux_name = '<<CHANGE ME>>'
+image_name = '<<CHANGE ME>>'
 
 #### main script body.
 
@@ -31,7 +31,7 @@ try:
 
     # Get Alpine Linux image ID                
     marketplace_apps = one.marketapppool.info(-1, -1,-1).MARKETPLACEAPP
-    marketplace_app_id = [marketplace_apps[_].ID for _ in range(len(marketplace_apps)) if marketplace_apps[_].NAME == alma_linux_name][0]
+    marketplace_app_id = [marketplace_apps[_].ID for _ in range(len(marketplace_apps)) if marketplace_apps[_].NAME == image_name][0]
 
     # import the Alpine Linux to the default datastore.
     imported_alpine_linux = pyone.helpers.marketapp_export(one,marketplace_app_id,image_datastore_id)
